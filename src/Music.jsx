@@ -27,6 +27,7 @@ import { FaCirclePause } from "react-icons/fa6";
 import { FaPlayCircle } from "react-icons/fa";
 import { IoPlayForwardCircle } from "react-icons/io5";
 import { FaMusic } from "react-icons/fa";
+import { MdLoop } from "react-icons/md";
 
 import "./music.css"
 
@@ -34,6 +35,10 @@ function Music() {
     let [play, setPlay] = useState(false);
     let [currentTime, setcurrentTime] = useState(0);
     let audioref = useRef(null);
+    let [loop, setloop] = useState(false);
+    let toggleloop = () => {
+        setloop(!loop);
+    }
     let songs = [
         {
             title: "KATHI",
@@ -131,38 +136,43 @@ function Music() {
             <header className="music-player-header">
                 <h1><FaMusic /> Music Player <FaMusic /></h1>
             </header>
-        <div className='cardplay'>
-            <audio
-                src={currentsong.src}
-                ref={audioref}
-                onTimeUpdate={timeupdatehandler}
-                onEnded={() => skipforwardplayhandler("skip-forward")}>
-            </audio>
-            <img src={currentsong.img} alt="" />
-            <h1>{currentsong.title}</h1>
+            <div className='cardplay'>
+                <audio
+                    src={currentsong.src}
+                    ref={audioref}
+                    onTimeUpdate={timeupdatehandler}
+                    onEnded={() => skipforwardplayhandler("skip-forward")}
+                    loop={loop}
+                >
+                </audio>
+                <img src={currentsong.img} alt="" />
+                <h1>{currentsong.title}</h1>
 
-            <div>
-                <input
-                    type='range'
-                    value={currentTime}
-                    max={audioref.current ? audioref.current.duration : 0}
-                    onChange={draghandler}
-                />
+                <div>
+                    <input
+                        type='range'
+                        value={currentTime}
+                        max={audioref.current ? audioref.current.duration : 0}
+                        onChange={draghandler}
+                    />
+                </div>
+
+                <div className='divcard'>
+                    <button onClick={() => skipforwardplayhandler("skip-back")}>
+                        <IoPlayBackCircle />
+                    </button>
+
+                    <button onClick={toggleloop}><MdLoop /></button>
+
+                    <button onClick={PlayorPause}>{play ? <FaCirclePause /> : <FaPlayCircle />}
+
+                    </button>
+                    <button onClick={() => skipforwardplayhandler("skip-forward")}>
+                        <IoPlayForwardCircle />
+                    </button>
+                </div>
+
             </div>
-
-            <div className='divcard'>
-                <button onClick={() => skipforwardplayhandler("skip-back")}>
-                    <IoPlayBackCircle />
-                </button>
-                <button onClick={PlayorPause}>{play ? <FaCirclePause /> : <FaPlayCircle />}
-
-                </button>
-                <button onClick={() => skipforwardplayhandler("skip-forward")}>
-                    <IoPlayForwardCircle />
-                </button>
-            </div>
-
-        </div>
         </div>
     )
 }
