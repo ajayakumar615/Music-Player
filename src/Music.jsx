@@ -128,8 +128,14 @@ function Music() {
         else if (direction === "skip-back") {
             setcurrentsongindex((previndex) => (previndex - 1 + songs.length) % songs.length);
         }
-        setPlay(false);
-        audioref.current.pause();
+        // setPlay(false);
+        // audioref.current.pause();
+        setTimeout(() =>{
+            if(audioref.current){
+                audioref.current.play();
+                setPlay(true);
+            }
+        },0)
     }
     return (
         <div>
@@ -162,7 +168,16 @@ function Music() {
                         <IoPlayBackCircle />
                     </button>
 
-                    <button onClick={toggleloop}><MdLoop /></button>
+                    {/* <button onClick={toggleloop}><MdLoop /></button> */}
+
+                    <button onClick={toggleloop}>
+                        {loop ? (
+                            <MdLoop className='active' />
+                        ) : (
+                            <MdLoop className='nonactive' />
+                        )
+                        }
+                    </button>
 
                     <button onClick={PlayorPause}>{play ? <FaCirclePause /> : <FaPlayCircle />}
 
