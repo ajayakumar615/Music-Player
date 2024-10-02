@@ -15,10 +15,10 @@ import kathi from "./kathi.jpg"
 import arm from "./arm.jpg"
 import leo from "./leo.jpeg"
 import goat from "./goat.jpg"
-import avesham from "./avesham.webp"
-import devara from "./devara.webp"
-import goat1 from "./goat1.webp"
-import gajini from "./gajini.webp"
+import avesham from "./avesham.jpg"
+import devara from "./devara.jpeg"
+import goat1 from "./goat1.jpg"
+import gajini from "./gajini.jpg"
 import animal from "./animal.jpg"
 import vettaiyan from "./vettaiyan.jpg"
 
@@ -26,7 +26,6 @@ import { IoPlayBackCircle } from "react-icons/io5";
 import { FaCirclePause } from "react-icons/fa6";
 import { FaPlayCircle } from "react-icons/fa";
 import { IoPlayForwardCircle } from "react-icons/io5";
-import { FaMusic } from "react-icons/fa";
 import { MdLoop } from "react-icons/md";
 
 import "./music.css"
@@ -59,7 +58,7 @@ function Music() {
 
         },
         {
-            title: "GOAT",
+            title: "GOAT THEME",
             src: audio4,
             img: goat
         },
@@ -74,7 +73,7 @@ function Music() {
             img: devara
         },
         {
-            title: "GOAT",
+            title: "MATTA",
             src: audio7,
             img: goat1
         },
@@ -108,88 +107,185 @@ function Music() {
         setPlay(!play)
     }
 
-    let timeupdatehandler = (e) => {
-        console.log(e.target);
-        console.log(e.target.currentTime);
-        setcurrentTime(e.target.currentTime);
+
+    let selectSong = (index) => {
+        setcurrentsongindex(index);
+        setPlay(false);
+        audioref.current.pause();
+        setTimeout(() => {
+            audioref.current.play();
+            setPlay(true);
+        }, 0);
     }
 
-    let draghandler = (e) => {
-        audioref.current.currentTime = e.target.value;
-        setcurrentTime(e.target.value);
-        console.log(e.target.value);
-    }
+    // let timeupdatehandler = (e) => {
+    //     console.log(e.target);
+    //     console.log(e.target.currentTime);
+    //     setcurrentTime(e.target.currentTime);
+    // }
 
-    let skipforwardplayhandler = (direction) => {
+    // let draghandler = (e) => {
+    //     audioref.current.currentTime = e.target.value;
+    //     setcurrentTime(e.target.value);
+    //     console.log(e.target.value);
+    // }
 
-        if (direction === "skip-forward") {
-            setcurrentsongindex((previndex) => (previndex + 1) % songs.length);
-        }
-        else if (direction === "skip-back") {
-            setcurrentsongindex((previndex) => (previndex - 1 + songs.length) % songs.length);
-        }
-        // setPlay(false);
-        // audioref.current.pause();
-        setTimeout(() =>{
-            if(audioref.current){
-                audioref.current.play();
-                setPlay(true);
-            }
-        },0)
-    }
+    // let skipforwardplayhandler = (direction) => {
+
+    //     if (direction === "skip-forward") {
+    //         setcurrentsongindex((previndex) => (previndex + 1) % songs.length);
+    //     }
+    //     else if (direction === "skip-back") {
+    //         setcurrentsongindex((previndex) => (previndex - 1 + songs.length) % songs.length);
+    //     }
+    // setPlay(false);
+    // audioref.current.pause();
+    //     setTimeout(() =>{
+    //         if(audioref.current){
+    //             audioref.current.play();
+    //             setPlay(true);
+    //         }
+    //     },0)
+    // }
+    // return (
+    //     <div>
+    //         <header className="music-player-header">
+    //             <h1><FaMusic /> Music Player <FaMusic /></h1>
+    //         </header>
+    //         <div className='cardplay'>
+    //             <audio
+    //                 src={currentsong.src}
+    //                 ref={audioref}
+    //                 onTimeUpdate={timeupdatehandler}
+    //                 onEnded={() => skipforwardplayhandler("skip-forward")}
+    //                 loop={loop}
+    //             >
+    //             </audio>
+    //             <img src={currentsong.img} alt="" />
+    //             <h1>{currentsong.title}</h1>
+
+    //             <div>
+    //                 <input
+    //                     type='range'
+    //                     value={currentTime}
+    //                     max={audioref.current ? audioref.current.duration : 0}
+    //                     onChange={draghandler}
+    //                 />
+    //             </div>
+
+    //             <div className='divcard'>
+    //                 <button onClick={() => skipforwardplayhandler("skip-back")}>
+    //                     <IoPlayBackCircle />
+    //                 </button>
+
+    //                 {/* <button onClick={toggleloop}><MdLoop /></button> */}
+
+    //                 <button onClick={toggleloop}>
+    //                     {loop ? (
+    //                         <MdLoop className='active' />
+    //                     ) : (
+    //                         <MdLoop className='nonactive' />
+    //                     )
+    //                     }
+    //                 </button>
+
+    //                 <button onClick={PlayorPause}>{play ? <FaCirclePause /> : <FaPlayCircle />}
+
+    //                 </button>
+    //                 <button onClick={() => skipforwardplayhandler("skip-forward")}>
+    //                     <IoPlayForwardCircle />
+    //                 </button>
+    //             </div>
+
+    //         </div>
+    //     </div>
+    // )
+
     return (
         <div>
-            <header className="music-player-header">
-                <h1><FaMusic /> Music Player <FaMusic /></h1>
-            </header>
-            <div className='cardplay'>
-                <audio
-                    src={currentsong.src}
-                    ref={audioref}
-                    onTimeUpdate={timeupdatehandler}
-                    onEnded={() => skipforwardplayhandler("skip-forward")}
-                    loop={loop}
-                >
-                </audio>
-                <img src={currentsong.img} alt="" />
-                <h1>{currentsong.title}</h1>
+            <div className="music-player-header">
+                <h1>MelodyMix</h1>
+            </div>
 
-                <div>
+            <div className="music-container">
+
+                <div className="cardplay">
+                    <audio
+                        src={currentsong.src}
+                        ref={audioref}
+                        onTimeUpdate={(e) => setcurrentTime(e.target.currentTime)}
+                        onEnded={() => selectSong((currentsongindex + 1) % songs.length)}
+                        loop={loop}
+                    />
+                    <img src={currentsong.img} alt={currentsong.title} />
+                    <h1>{currentsong.title}</h1>
                     <input
-                        type='range'
+                        type="range"
                         value={currentTime}
                         max={audioref.current ? audioref.current.duration : 0}
-                        onChange={draghandler}
+                        onChange={(e) => {
+                            audioref.current.currentTime = e.target.value;
+                            setcurrentTime(e.target.value);
+                        }}
                     />
+                    <div className="divcard">
+                        <button onClick={() => selectSong((currentsongindex - 1 + songs.length) % songs.length)}>
+                            <IoPlayBackCircle />
+                        </button>
+                        <button onClick={PlayorPause}>
+                            {play ? <FaCirclePause /> : <FaPlayCircle />}
+                        </button>
+                        <button onClick={toggleloop}>
+                            {loop ? (
+                                <MdLoop className='active' />
+                            ) : (
+                                <MdLoop className='nonactive' />
+                            )
+                            }
+                        </button>
+                        <button onClick={() => selectSong((currentsongindex + 1) % songs.length)}>
+                            <IoPlayForwardCircle />
+                        </button>
+                    </div>
                 </div>
 
-                <div className='divcard'>
-                    <button onClick={() => skipforwardplayhandler("skip-back")}>
-                        <IoPlayBackCircle />
-                    </button>
+                {/* <div className="music-list">
+                    <ul>
+                        {songs.map((song, index) => (
+                            <li key={index} onClick={() => selectSong(index)}>
+                                <img src={song.img} alt={song.title} />
+                                <h3>{song.title}</h3>
+                            </li>
+                        ))}
+                    </ul>
+                </div> */}
 
-                    {/* <button onClick={toggleloop}><MdLoop /></button> */}
-
-                    <button onClick={toggleloop}>
-                        {loop ? (
-                            <MdLoop className='active' />
-                        ) : (
-                            <MdLoop className='nonactive' />
-                        )
-                        }
-                    </button>
-
-                    <button onClick={PlayorPause}>{play ? <FaCirclePause /> : <FaPlayCircle />}
-
-                    </button>
-                    <button onClick={() => skipforwardplayhandler("skip-forward")}>
-                        <IoPlayForwardCircle />
-                    </button>
+                <div className="music-list">
+                    <div className="music-list-section">
+                        <ul>
+                            {songs.slice(0, 5).map((song, index) => (
+                                <li key={index} onClick={() => selectSong(index)}>
+                                    <img src={song.img} alt={song.title} />
+                                    <h3>{song.title}</h3>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
+                    <div className="music-list-section">
+                        <ul>
+                            {songs.slice(5, 10).map((song, index) => (
+                                <li key={index + 5} onClick={() => selectSong(index + 5)}>
+                                    <img src={song.img} alt={song.title} />
+                                    <h3>{song.title}</h3>
+                                </li>
+                            ))}
+                        </ul>
+                    </div>
                 </div>
-
             </div>
         </div>
-    )
+    );
+
 }
 
 export default Music

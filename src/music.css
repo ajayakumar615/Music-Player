@@ -8,23 +8,32 @@ body {
     font-family: 'Arial', sans-serif;
 }
 
-.music-player-header {
-    position: fixed;
-    top: 0;
-    left: 0;
+.music-container {
+    display: flex;
     width: 100%;
-    color: #0a1fa5;
+    max-width: 1200px;
+    justify-content: space-between;
+}
+
+.music-player-header {
+    background-color: #6a5acd;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
     text-align: center;
-    font-size: 30px;
-    font-weight: bold;
-    font-family: Georgia, 'Times New Roman', Times, serif;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
+    margin-bottom: 20px;
 }
+
 .music-player-header h1 {
-    text-decoration: underline;
-    font-size: 60px;
+    font-size: 3rem;
+    color: #fff;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: 'Georgia', serif;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+    animation: fadeIn 1s;
 }
+
 .cardplay {
     background-color: #f5f5f5;
     padding: 20px;
@@ -32,11 +41,11 @@ body {
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
     height: 450px;
     width: 320px;
-    margin: 20px auto;
+    margin-right: 20px;
     text-align: center;
     font-family: 'Arial', sans-serif;
     color: #333;
-    margin-top: 170px;
+    margin-top: 50px;
 }
 
 .cardplay img {
@@ -63,15 +72,6 @@ body {
     margin: 15px 0;
 }
 
-.cardplay input[type='range']::-moz-range-thumb {
-    width: 15px;
-    height: 15px;
-    background: #3b82f6;
-    border-radius: 50%;
-    border: none;
-    cursor: pointer;
-}
-
 .divcard {
     display: flex;
     justify-content: space-around;
@@ -79,8 +79,16 @@ body {
     margin-top: 10px;
 }
 
+.divcard button {
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    font-size: 2rem;
+    color: #3b82f6;
+}
+
 .divcard .active {
-    color: #10b981;
+    color: red;
     transform: scale(1.2);
     transition: transform 0.2s ease, color 0.2s ease;
 }
@@ -96,16 +104,64 @@ body {
     transform: scale(1.1);
 }
 
-
-.divcard button {
-    background-color: transparent;
-    border: none;
-    cursor: pointer;
-    font-size: 2rem;
-    color: #3b82f6;
-    transition: color 0.2s ease;
+.music-list {
+    width: 800px;
+    background-color: #f0f0f0;
+    border-radius: 10px;
+    padding: 20px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    margin-top: 50px;
+    margin-bottom: 50px;
+    display: flex;
+    justify-content: space-between;
 }
 
-.divcard button:hover {
-    color: #2563eb;
+.music-list-section {
+    width: 100%;
+    margin-right: 20px;
+}
+
+.music-list-section:last-child {
+    margin-right: 0;
+}
+
+.music-list-section h2 {
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 10px;
+    color: #333;
+}
+
+.music-list ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.music-list li {
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #fff;
+    border-radius: 5px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    transition: background-color 0.2s ease;
+}
+
+.music-list li:hover {
+    background-color: #2f90c078;
+    transition: background-color 0.3s ease;
+}
+
+.music-list li img {
+    width: 50px;
+    height: 50px;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.music-list li h3 {
+    flex-grow: 1;
+    font-size: 1rem;
 }
